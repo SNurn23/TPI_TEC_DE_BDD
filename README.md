@@ -9,6 +9,8 @@
 
 ## Cambios y Modificaciones en el Modelo
 
+![Untitled Diagram drawio](https://user-images.githubusercontent.com/96267637/171967835-a4b87aab-92f1-4ebb-aaf0-0f36c50b8703.png)
+
 En CONCEPTOSXCERTIF:
 
   - Se remplazo el Campo IMPORTE quedando en su lugar:
