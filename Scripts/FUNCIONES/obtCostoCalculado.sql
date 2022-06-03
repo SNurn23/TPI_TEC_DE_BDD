@@ -1,0 +1,33 @@
+
+	
+--------------------------FUNCION PARA OBTENER EL COSTO DE UN ITEM DE OBRA CON LOS AGREGADOS E IVA---------------------------
+CREATE OR REPLACE FUNCTION obtCostoCalculado (VidItem NUMERIC(8), VidObra NUMERIC(5))
+	RETURNS NUMERIC(30,2) AS $$
+DECLARE
+	CCalculado NUMERIC(30,2);
+BEGIN
+	-----------------------------------------------------
+		SELECT (
+		CASE 
+			WHEN(IT.IDTIPOITEM=1)
+			THEN(
+				((SUBC.CostoItem * (1+(OBR.PORFLETE/100)))*(1+(OBR.PORGASTOS/100))*(1+(OBR.PORUTI)))*(1+(OBR.IVAVIV/100))
+			)
+			ELSE(
+				((SUBC.CostoItem * (1+(OBR.PORFLETE/100)))*(1+(OBR.PORGASTOS/100))*(1+(OBR.PORUTI)))*(1+(OBR.IVAINFRA/100))
+			)
+		END )AS COSTOTOTAL INTO CCalculado
+		FROM (
+			SELECT ITC.COSTO AS CostoItem, ITC.IDITEM AS itemID, ITC.IDOBRA AS obraID FROM ITEMCOSTO AS ITC
+			INNER JOIN REDETERMINACION AS RDT
+			ON RDT.idredeterminacion = ITC.IDREDETERMINACION
+			WHERE RDT.FECHAHASTA IS NULL AND RDT.idredeterminacion >=1 AND ITC.IDITEM = VidItem AND ITC.IDOBRA = VidObra 
+		) AS SUBC
+		INNER JOIN ITEM AS IT
+		ON IT.IDITEM = SUBC.itemID AND IT.IDOBRA = SUBC.obraID
+		INNER JOIN OBRA AS OBR
+		ON OBR.IDOBRA = IT.IDOBRA;
+	-----------------------------------------------------
+RETURN CCalculado;
+END;
+$$ LANGUAGE plpgsql
