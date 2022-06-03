@@ -28,12 +28,12 @@ CREATE OR REPLACE TRIGGER Tr_insert_certiPago before insert on certipago
 FOR EACH ROW
 EXECUTE PROCEDURE Fn_NroCertPago();
 
-----------------TRIGGER DE SECUENCIA DE ID_CERT_PAGO-----------
+----------------TRIGGER DE SECUENCIA DE ID_CERT_OBRA-----------
 CREATE OR REPLACE FUNCTION Fn_NroCertObra() RETURNS TRIGGER AS $$
 
 BEGIN
 
-SELECT nextval('sec_id_cert_obra') INTO NEW.nrocerobra;
+SELECT nextval('SEC_NRO_CERT_OBRA') INTO NEW.nrocerobra;
 RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -42,3 +42,117 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE  TRIGGER Tr_insert_certiObra BEFORE INSERT ON certiobra
 FOR EACH ROW
 EXECUTE PROCEDURE Fn_NroCertObra();
+
+------------------TRIGGER DE SECUENCIA DE ID OBRA-----
+CREATE OR REPLACE FUNCTION Fn_idObra() RETURNS TRIGGER AS $$
+
+BEGIN
+
+SELECT nextval('SEC_ID_OBRA') INTO NEW.IDOBRA;
+RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE TRIGGER Tr_insert_obra BEFORE INSERT ON obra
+FOR EACH ROW
+EXECUTE PROCEDURE Fn_idObra();
+
+------------------TRIGGER DE SECUENCIA DE ID EMPRESA -----
+CREATE OR REPLACE FUNCTION Fn_idEmpresa() RETURNS TRIGGER AS $$
+
+BEGIN
+
+SELECT nextval('SEC_ID_EMPRESA') INTO NEW.IDEMPRESA;
+RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER Tr_insert_empresa BEFORE INSERT ON empresa
+FOR EACH ROW
+EXECUTE PROCEDURE Fn_idEmpresa();
+------------------------------------------------------------
+------------------TRIGGER DE SECUENCIA DE ID LOCALIDAD -----
+CREATE OR REPLACE FUNCTION Fn_idLocalidad() RETURNS TRIGGER AS $$
+
+BEGIN
+
+SELECT nextval('SEC_ID_LOCALIDAD') INTO NEW.IDLOCALIDAD;
+RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER Tr_insert_localidad BEFORE INSERT ON localidad
+FOR EACH ROW
+EXECUTE PROCEDURE Fn_idLocalidad();
+------------------------------------------------------------
+------------------TRIGGER DE SECUENCIA DE IDTIPOCONTRATACION -----
+CREATE OR REPLACE FUNCTION Fn_idTipoContratacion() RETURNS TRIGGER AS $$
+
+BEGIN
+
+SELECT nextval('SEC_ID_TIPOCONTRATACION') INTO NEW.IDTIPCONTRAT;
+RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER Tr_insert_tipocontratacion BEFORE INSERT ON TIPOCONTRATACION
+FOR EACH ROW
+EXECUTE PROCEDURE Fn_idTipoContratacion();
+------------------------------------------------------------
+------------------TRIGGER DE SECUENCIA DE IDITEM -----
+CREATE OR REPLACE FUNCTION Fn_idItem() RETURNS TRIGGER AS $$
+
+BEGIN
+
+SELECT nextval('SEC_ID_ITEM') INTO NEW.IDITEM;
+RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER Tr_insert_item BEFORE INSERT ON ITEM
+FOR EACH ROW
+EXECUTE PROCEDURE Fn_idItem();
+------------------------------------------------------------
+------------------TRIGGER DE SECUENCIA DE IDTIPOITEM -----
+CREATE OR REPLACE FUNCTION Fn_idTipoItem() RETURNS TRIGGER AS $$
+
+BEGIN
+
+SELECT nextval('SEC_ID_TIPOITEM') INTO NEW.IDTIPOITEM;
+RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER Tr_insert_Tipoitem BEFORE INSERT ON TIPOITEM
+FOR EACH ROW
+EXECUTE PROCEDURE Fn_idTipoItem();
+------------------------------------------------------------
+------------------TRIGGER DE SECUENCIA DE IDREDETERMINACION -----
+CREATE OR REPLACE FUNCTION Fn_idRedeterminacion() RETURNS TRIGGER AS $$
+
+BEGIN
+
+SELECT nextval('SEC_ID_REDETERMINACION') INTO NEW.IDREDETERMINACION;
+RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER Tr_insert_Redeterminacion BEFORE INSERT ON REDETERMINACION
+FOR EACH ROW
+EXECUTE PROCEDURE Fn_idRedeterminacion();
+------------------------------------------------------------
+------------------TRIGGER DE SECUENCIA DE CONCEPTO -----
+CREATE OR REPLACE FUNCTION Fn_idConcepto() RETURNS TRIGGER AS $$
+
+BEGIN
+
+SELECT nextval('SEC_ID_CONCEPTO') INTO NEW.IDCONCEPTO;
+RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER Tr_insert_Concepto BEFORE INSERT ON CONCEPTO
+FOR EACH ROW
+EXECUTE PROCEDURE Fn_idConcepto();
+------------------------------------------------------------

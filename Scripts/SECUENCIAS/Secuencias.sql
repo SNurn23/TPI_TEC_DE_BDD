@@ -55,11 +55,18 @@ increment by 1
 maxvalue 99
 minvalue 0
 ---------------
-----------SECUENCIA DE ID_TIPOCONTRATACION-----------
-create sequence SEC_ID_TIPOCONTRATACION
+----------SECUENCIA DE ID_TIPOITEM-----------
+create sequence SEC_ID_TIPOITEM
 start 3 
 increment by 1
 maxvalue 99
+minvalue 0
+---------------
+----------SECUENCIA DE ID_ITEM-----------
+create sequence SEC_ID_ITEM
+start 41
+increment by 1
+maxvalue 99999999
 minvalue 0
 ---------------
 ----------SECUENCIA DE ID_TIPOCONTRATACION-----------
@@ -76,7 +83,6 @@ increment by 1
 maxvalue 999
 minvalue 0
 ---------------
-
 
 -----CONSULTAR ULTIMOS ID-----------
 SELECT MAX(IDOBRA) FROM OBRA 
