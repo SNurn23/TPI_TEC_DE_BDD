@@ -17,7 +17,7 @@ BEGIN
 		INSERT INTO LOG_TABLA VALUES(id_log, TG_RELNAME, 'UPDATE', NEW, OLD, fecha, tiempo, usuario);
 		RETURN NEW;
 	ELSEIF	(TG_OP = 'INSERT')	THEN
-		INSERT INTO LOG_TABLA VALUES(id_log, TG_RELNAME, 'INSERT', NEW, OLD, fecha, tiempo, usuario);
+		INSERT INTO LOG_TABLA VALUES(id_log, TG_RELNAME, 'INSERT', NEW, NULL, fecha, tiempo, usuario);
 		RETURN NEW;
 	END IF;
 	
