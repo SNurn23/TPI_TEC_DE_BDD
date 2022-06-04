@@ -5,7 +5,7 @@
 - Knüppelholz Adrián Carlos Gastón / MAT.67100
 - Nürnberg Sofia / MAT 67111
 
-## CONCIDERACIONES Y RANOZAMIENTO DEDUCTIVO
+## CONCIDERACIONES Y RAZONAMIENTO DEDUCTIVO
 
 ## Cambios y Modificaciones en el Modelo
 
