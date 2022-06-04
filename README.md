@@ -92,8 +92,7 @@ Para su funcionamiento recibe como parametro el IDItem y El IDOBRA.
     * CERT_PAGO
     * CERT_OBRA
     
-- Por otra parte, tambien se generaron las secuencias a las tablas restantes. La diferencia con las tablas mencionadas anteriormente, es que estas en vez de comenzar con el id=1 van comenzar con el (id maximo de la tabla + 1) e ir incrementado a partir de ese cada vez que se ingrese un nuevo registro.
-- Las tablas afectadas son:
+- Por otra parte, tambien se generaron las secuencias a las tablas restantes. La diferencia con las tablas mencionadas anteriormente, es que estas en vez de comenzar con el id=1 van comenzar con el (id maximo de la tabla + 1) e ir incrementado a partir de ese dato cada vez que se inserte un nuevo registro. Las tablas afectadas son:
     * EMPRESA
     * LOCALIDAD
     * OBRA
@@ -107,3 +106,15 @@ NOTA: En este caso, se busco en cada una de las tablas el id MAX de los registro
 
 Ademas, todas las secuencias fueron implementadas con un trigger para que se incremente automaticamente a medida que va insertando.
 
+<h2>MONITOREO DE LOGS</h2>
+
+*Especificacion de funciones de trigger en postgresql*
+
+- TG_OP: es de tipo de dato *Text*. Representa una cadena de *INSERT*, *UPDATE*, * DELETE* o *TRUNCATE* que indica para qué operación se disparó el trigger.
+
+- TG_RELNAME: Representa el nombre de la tabla que provocó la invocacion del trigger.
+
+**TABLA "LOG_TABLA"**
+- En esta tabla tendra todos los registros de las operaciones que se realicen en cualquier tabla. Por lo tanto, cuenta con un campo "tabla" que indica la tabla donde activo el trigger, tabieen cuenta con un campo que indica que operacion se realizo, un campo indicando los datos OLD y uno para los NEW. Ademas, se tiene el usuario, una fecha y una hora.
+
+- Todas las tablas cuenta con un trigger que se va activar por cualquier de las operaciones: *INSERT*, *UPDATE* o * DELETE*. La funcion Fn_LOG_TABLA() va a identificar cual es la operacion que se realizo y segun el caso, se va a insertar en la tabla LOG_TABLA el registro LOG correspondiente a la operacion.
