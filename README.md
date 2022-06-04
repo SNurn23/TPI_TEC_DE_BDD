@@ -9,15 +9,15 @@
 
 ## Cambios y Modificaciones en el Modelo
 
-![Untitled Diagram drawio](https://user-images.githubusercontent.com/96267637/171967835-a4b87aab-92f1-4ebb-aaf0-0f36c50b8703.png)
+![Untitled Diagram drawio](https://user-images.githubusercontent.com/96267637/171967918-3d6feefd-1dfd-4b48-8d75-7f8176dce01c.png)
 
-En CONCEPTOSXCERTIF:
+En **CONCEPTOSXCERTIF**:
 
   - Se remplazo el Campo IMPORTE quedando en su lugar:
     - IMPORXIVA NUMERIC(15,2)
     - IMPORXINFRA(15,2)
 
-En CONCEPTOSXOBRA:
+En **CONCEPTOSXOBRA**:
 
   - Se agrego el Campo PORCENTAJE NUMERIC(2)
 
@@ -29,14 +29,22 @@ En CONCEPTOSXOBRA:
     - NROCERTIFICADO NUMERIC(3) <PK,FK>
     - ACUMULADO NUMERIC(15,2)
 
-
-## Consultas Especificas
-
 ## Funciones
 
-cargar_foja
+**Cargar_foja**
 
-generar_foja
+- Si la foja no tiene certifiacdo de pago o de obra y o certipago.abierto = 0 => se actualiza. 
+- El campo avance del detalle de foja correspondiente con el item-obra-foja de ser cumplir la concidencia de claves de lo contrario no hace nada.
+- Si retorna 0 correcta actualizacion o registro de avance de lo contrario no se a realizado.
+
+Nota: posee el procedimeinto SIMULADOR_APP_CARGA_AVANCES que simula interfaz y permite probar la misma (ingreso de avances representada en una tabla: avancesobracargar)
+
+**Generar_foja**
+- Genera una foja para la obra especificada, si CertificadoPago.Abierto = 0 o null,
+de ser la primera foja de la obra => los items del detalle de foja son obtenidos al recorrer items de obra y su AAA = 0 , AcuActual = null, de no ser el priemero, los items se obtienen de foja anterior y su AAA = ultimaFoja.AAA + ultimaFoja.AcuActual ,  su AcuActual = null.
+- Si todo es exitoso retorna 0 de lo contrario 1.
+
+Nota: posee el procedimeinto simulador_app_seleccionfoja_generar que simula interfaz y permite probar la misma. (Seleccion para generar obras masivas representada por tabla : obrasSeleccionadas_para_GenerarFoja ).
 
 **obtavanceacumuladoitem**
 
@@ -55,9 +63,11 @@ generar_foja
 - Duevuelve el costo de un item particular perteneciente a una obra en especifico contemplando los Costos PorFlete,PorGastos,PorUti. Y por Ultimo aplica el IVA correspondiente segun el IDTIPOITEM corresponda.
 Para su funcionamiento recibe como parametro el IDItem y El IDOBRA.
 
-obtener_idobra
+**obtener_idobra**
+- Esta funcion recibe como parametro el numero de obra. Con ese dato se busca en la tabla de obra su correspondiente idObra. Una vez que se obtiene, la funcion lo retorna.
 
-obtenerestadoabiertocertpago
+**obtenerestadoabiertocertpago**
+- Obtiene el Certipago.Abierto correspondiente a la obra y foja especificada, si no se tiene certipago o certiobara => retorna null de los contrario 0(cerrado) 1(abierto)
 
 **obtincidenciaitem**
 
@@ -75,9 +85,25 @@ obtenerestadoabiertocertpago
 
 - En base a un ID de obra, la función retorna la diferencia que existe entre el contrato básico y el contrato redeterminado de la obra ingresada
 
-cargar_foja(id_obra numeric(5), id_foja numeric(5), id_item numeric(8), avance_item numeric(18,2)) :
+<h2>SECUENCIAS</h2>
 
-Si la foja no tiene certifiacdo de pago o de obra y o certipago.abierto = 0 => se actualiza el campo avance del detalle de foja correspondiente con el item-obra-foja de ser cumplir la concidencia de claves de lo contrario no hace nada.
+- Se generaron secuencias para las tablas que aun no fueron cargadas con datos, por lo que el primer registro insertado va a poseer el id = 1 y se va a ir incrementado a medida que se va insertando. Las siguientes tablas son: 
+    * FOJA
+    * CERT_PAGO
+    * CERT_OBRA
+    
+- Por otra parte, tambien se generaron las secuencias a las tablas restantes. La diferencia con las tablas mencionadas anteriormente, es que estas en vez de comenzar con el id=1 van comenzar con el (id maximo de la tabla + 1) e ir incrementado a partir de ese cada vez que se ingrese un nuevo registro.
+- Las tablas afectadas son:
+    * EMPRESA
+    * LOCALIDAD
+    * OBRA
+    * TIPOCONTRATACION
+    * TIPOITEM
+    * ITEM
+    * REDETERMINACION
+    * CONCEPTO
+    
+NOTA: En este caso, se busco en cada una de las tablas el id MAX de los registros ya cargados de los inserts que se encontraban en el aula virtual. Una vez que se obtuvo el id maximo, se le sumo +1 y se lo coloco como constante en la parte de START WITH.
 
-Si retorna 0 correcta actualizacion o registro de avance de lo contrario no se a realizado.
+Ademas, todas las secuencias fueron implementadas con un trigger para que se incremente automaticamente a medida que va insertando.
 
