@@ -110,7 +110,7 @@ Ademas, todas las secuencias fueron implementadas con un trigger para que se inc
 
 *Especificacion de funciones de trigger en postgresql*
 
-- TG_OP: es de tipo de dato *Text*. Representa una cadena de *INSERT*, *UPDATE*, * DELETE* o *TRUNCATE* que indica para qué operación se disparó el trigger.
+- TG_OP: es de tipo de dato *Text*. Representa una cadena de *INSERT*, *UPDATE*, *DELETE* o *TRUNCATE* que indica para qué operación se disparó el trigger.
 
 - TG_RELNAME: Representa el nombre de la tabla que provocó la invocacion del trigger.
 
