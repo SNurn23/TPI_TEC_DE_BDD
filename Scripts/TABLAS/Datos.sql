@@ -3419,7 +3419,8 @@ insert into  CONCEPTOSXOBRA (idobra, idconcepto, ordenimp, calcfondoreparo, porc
 values (10098, 2, 2, 1, 10);
 insert into  CONCEPTOSXOBRA (idobra, idconcepto, ordenimp, calcfondoreparo, porcentaje)
 values (10096, 2, 2, 1, 10);
-insert into  CONCEPTOSXOBRA (idobra, idconcepto, ordenimp, calcfondoreparo, porcentaje)
+insert into  CONCEPTOSXOBRA (idobra, idconcepto, ordenimp, calcfond....
+oreparo, porcentaje)
 values (9963, 2, 2, 1, 10);
 insert into  CONCEPTOSXOBRA (idobra, idconcepto, ordenimp, calcfondoreparo, porcentaje)
 values (10099, 2, 2, 1, 10);
@@ -3457,3 +3458,5 @@ insert into  CONCEPTOSXOBRA (idobra, idconcepto, ordenimp, calcfondoreparo, porc
 values (10099, 3, 3, 1, 5);
 -- insert into  CONCEPTOSXOBRA (idobra, idconcepto, ordenimp, calcfondoreparo, porcentaje)
 -- values (10103, 3, 3, 1, 5);
+////////////
+fondo de reparo = deduccion de anticipo + avance de obra
